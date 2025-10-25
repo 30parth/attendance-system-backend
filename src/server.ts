@@ -1,27 +1,20 @@
 import express from 'express';
 import { connectDB } from './db';
 import dotenv from 'dotenv';
-import { User } from './models/User';
-
+import authRoutes from './routes/authRoutes';
+import cors from 'cors';
 dotenv.config();
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 app.use(express.json());
+app.use(cors());
+
+
+app.use('/api', authRoutes);
 
 app.get('/health', (req, res) => res.json({ status: 'ok' }));
 
-app.post('/users', async (req, res) => {
-  try {
-    const { name, email } = req.body;
-    const user = new User({ name, email });
-    await user.save();
-    res.status(201).json(user);
-  } catch (err) {
-    res.status(400).json({ error: (err as Error).message });
-  }
-});
-
-const PORT = process.env.PORT || 3000;
 
 async function start() {
   await connectDB();
