@@ -4,14 +4,23 @@ import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes";
 import cors from "cors";
 import classRoutes from "./routes/classRoutes";
+import cookieParser from "cookie-parser";
 dotenv.config();
+
+console.log(
+  "Environment check - JWT_SECRET is:",
+  process.env.JWT_SECRET ? "DEFINED" : "UNDEFINED"
+);
+
 const PORT = process.env.PORT || 5000;
+const APP_URL = process.env.URL || "http://localhost:5173";
 
 const app = express();
+app.use(cookieParser());
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: APP_URL,
     credentials: true,
   })
 );
