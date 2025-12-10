@@ -33,9 +33,13 @@ authRoutes.post("/login", async (req, res) => {
         .json({ message: "Internal server configuration error" });
     }
 
-    const token = jwt.sign({ name: user.name, role: user.role }, secret, {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign(
+      { id: user._id, name: user.name, role: user.role },
+      secret,
+      {
+        expiresIn: "1h",
+      }
+    );
 
     res.cookie("token", token, {
       httpOnly: true,

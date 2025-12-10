@@ -4,13 +4,9 @@ import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes";
 import cors from "cors";
 import classRoutes from "./routes/classRoutes";
+import studentRoutes from "./routes/studentRooutes";
 import cookieParser from "cookie-parser";
 dotenv.config();
-
-console.log(
-  "Environment check - JWT_SECRET is:",
-  process.env.JWT_SECRET ? "DEFINED" : "UNDEFINED"
-);
 
 const PORT = process.env.PORT || 5000;
 const APP_URL = process.env.URL || "http://localhost:5173";
@@ -27,6 +23,7 @@ app.use(
 
 app.use("/api", authRoutes);
 app.use("/api", classRoutes);
+app.use("/api", studentRoutes);
 
 app.get("/health", (req, res) => res.json({ status: "ok" }));
 
