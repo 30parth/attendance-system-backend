@@ -71,4 +71,9 @@ authRoutes.get("/check", verifyToken, async (req: any, res: any) => {
   }
 });
 
+authRoutes.post("/logout", (req, res) => {
+  res.clearCookie("token");
+  return res.status(200).json({ message: "Logout successful" });
+});
+
 export default authRoutes;
