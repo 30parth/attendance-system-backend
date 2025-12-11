@@ -72,7 +72,12 @@ authRoutes.get("/check", verifyToken, async (req: any, res: any) => {
 });
 
 authRoutes.post("/logout", (req, res) => {
-  res.clearCookie("token");
+  res.cookie("token", "", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: 0,
+  });
   return res.status(200).json({ message: "Logout successful" });
 });
 
