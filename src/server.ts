@@ -9,7 +9,7 @@ import cookieParser from "cookie-parser";
 dotenv.config();
 
 const PORT = process.env.PORT || 5000;
-const APP_URL = process.env.URL || "http://localhost:5173";
+const APP_URL = process.env.APP_URL || "http://localhost:5173";
 
 const app = express();
 app.use(cookieParser());
