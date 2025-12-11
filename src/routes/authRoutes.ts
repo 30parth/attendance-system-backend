@@ -75,7 +75,7 @@ authRoutes.post("/logout", (req, res) => {
   res.cookie("token", "", {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    sameSite: "none",
     maxAge: 0,
   });
   return res.status(200).json({ message: "Logout successful" });
