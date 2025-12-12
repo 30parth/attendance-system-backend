@@ -55,4 +55,16 @@ studnetRoute.get("/student", async (req, res) => {
   }
 });
 
+studnetRoute.delete("/student/delete/:id", async (req, res) => {
+  try {
+    const student = await Student.findByIdAndDelete(req.params.id);
+    if (!student) {
+      return res.status(404).json({ message: "Student not found" });
+    }
+    res.status(200).json({ message: "Student deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 export default studnetRoute;

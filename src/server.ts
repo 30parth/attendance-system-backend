@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes";
 import cors from "cors";
 import classRoutes from "./routes/classRoutes";
-import studentRoutes from "./routes/studentRooutes";
+import studentRoutes from "./routes/studentRoutes";
 import cookieParser from "cookie-parser";
 dotenv.config();
 
