@@ -29,7 +29,7 @@ const StudentSchema = new Schema<IStudent>({
   category: { type: String },
   mobileNumber: { type: String, required: true },
   email: { type: String },
-  admissionDate: { type: String, required: true },
+  admissionDate: { type: String, required: false },
   bloodGroup: { type: String },
   medicalHistory: { type: String },
 });
