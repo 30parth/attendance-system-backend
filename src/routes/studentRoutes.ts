@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { IStudent, Student } from "../models/Student";
-
+import { User } from "../models/User";
+import bcrypt from "bcrypt";
 const studnetRoute = Router();
 
 studnetRoute.post("/student/add", async (req, res) => {
@@ -21,6 +22,16 @@ studnetRoute.post("/student/add", async (req, res) => {
     medicalHistory,
   } = req.body;
   try {
+    const user = new User({
+      email: email,
+      username: rollNumber,
+      name: firstName + lastName,
+      password: await bcrypt.hash(mobileNumber, 10),
+      role: "student",
+    });
+
+    await user.save();
+
     const student = new Student({
       admissionNo,
       rollNumber,
@@ -58,7 +69,9 @@ studnetRoute.get("/student", async (req, res) => {
 studnetRoute.delete("/student/delete/:id", async (req, res) => {
   try {
     const student = await Student.findByIdAndDelete(req.params.id);
-    if (!student) {
+
+    const user = await User.findOneAndDelete({ username: student?.rollNumber });
+    if (!student || !user) {
       return res.status(404).json({ message: "Student not found" });
     }
     res.status(200).json({ message: "Student deleted successfully" });

@@ -2,7 +2,7 @@ import { Router } from "express";
 import { IUser, User } from "../models/User";
 import jwt from "jsonwebtoken";
 import { verifyToken } from "../middleware/authMiddleware";
-
+import bcrypt from "bcrypt";
 const authRoutes = Router();
 
 authRoutes.post("/login", async (req, res) => {
@@ -15,13 +15,15 @@ authRoutes.post("/login", async (req, res) => {
         .json({ message: "Username and password are required" });
     }
 
-    const user: IUser | null = await User.findOne({ email: username });
+    const user: IUser | null = await User.findOne({ username: username });
 
     if (!user) {
       return res.status(401).json({ message: "User not found" });
     }
 
-    if (user.password != password) {
+    const passwordMatch = bcrypt.compare(password, user.password);
+
+    if (!passwordMatch) {
       return res.status(401).json({ message: "Invalid password" });
     }
 
