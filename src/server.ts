@@ -1,19 +1,25 @@
 import express from "express";
-import { connectDB } from "./db";
 import dotenv from "dotenv";
-import authRoutes from "./routes/authRoutes";
+import cookieParser from "cookie-parser";
 import cors from "cors";
+
+import { connectDB } from "./db";
+import authRoutes from "./routes/authRoutes";
 import classRoutes from "./routes/classRoutes";
 import studentRoutes from "./routes/studentRoutes";
-import cookieParser from "cookie-parser";
+
+// Load environment variables
 dotenv.config();
 
+const app = express();
 const PORT = process.env.PORT || 5000;
 const APP_URL = process.env.APP_URL || "http://localhost:5173";
 
-const app = express();
+// Middleware
 app.use(cookieParser());
 app.use(express.json());
+
+// CORS Configuration
 app.use(
   cors({
     origin: APP_URL,
@@ -28,18 +34,27 @@ app.use(
   })
 );
 
+// Routes
 app.use("/api", authRoutes);
 app.use("/api", classRoutes);
 app.use("/api", studentRoutes);
 
-app.get("/health", (req, res) => res.json({ status: "ok" }));
-
-async function start() {
-  await connectDB();
-  app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
-}
-
-start().catch((err) => {
-  console.error("Failed to start server", err);
-  process.exit(1);
+// Health Check
+app.get("/health", (req, res) => {
+  res.json({ status: "ok" });
 });
+
+// Database Connection and Server Start
+const startServer = async () => {
+  try {
+    await connectDB();
+    app.listen(PORT, () => {
+      console.log(`Server listening on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error("Failed to start server:", error);
+    process.exit(1);
+  }
+};
+
+startServer();
