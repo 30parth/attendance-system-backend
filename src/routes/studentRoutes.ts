@@ -94,4 +94,47 @@ studentRoute.delete("/student/delete/:id", async (req, res) => {
   }
 });
 
+studentRoute.put("/student/update/:id", async (req, res) => {
+  try {
+    const {
+      admissionNo,
+      rollNumber,
+      divition,
+      section,
+      firstName,
+      lastName,
+      gender,
+      dob,
+      category,
+      mobileNumber,
+      email,
+      admissionDate,
+      bloodGroup,
+      medicalHistory,
+    } = req.body;
+    const student = await Student.findByIdAndUpdate(req.params.id, {
+      admissionNo,
+      rollNumber,
+      divition,
+      section,
+      firstName,
+      lastName,
+      gender,
+      dob,
+      category,
+      mobileNumber,
+      email,
+      admissionDate,
+      bloodGroup,
+      medicalHistory,
+    });
+    if (!student) {
+      return res.status(404).json({ message: "Student not found" });
+    }
+    res.status(200).json({ student });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 export default studentRoute;

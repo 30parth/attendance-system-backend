@@ -7,6 +7,7 @@ import { connectDB } from "./db";
 import authRoutes from "./routes/authRoutes";
 import classRoutes from "./routes/classRoutes";
 import studentRoutes from "./routes/studentRoutes";
+import dropdownRoutes from "./routes/dropdownRoutes";
 
 // Load environment variables
 dotenv.config();
@@ -38,6 +39,7 @@ app.use(
 app.use("/api", authRoutes);
 app.use("/api", classRoutes);
 app.use("/api", studentRoutes);
+app.use("/api", dropdownRoutes);
 
 // Health Check
 app.get("/health", (req, res) => {

@@ -34,4 +34,18 @@ classRoutes.delete("/class/delete/:id", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+classRoutes.put("/class/update/:id", async (req, res) => {
+  try {
+    const { name } = req.body;
+    const classData = await Class.findByIdAndUpdate(req.params.id, { name });
+    if (!classData) {
+      return res.status(404).json({ error: "Class not found" });
+    }
+    res.status(200).json({ classData });
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 export default classRoutes;
