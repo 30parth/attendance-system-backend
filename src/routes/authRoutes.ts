@@ -46,7 +46,7 @@ authRoutes.post("/login", async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: "none",
       maxAge: 3600000, // 1 hour
     });
 
@@ -77,7 +77,7 @@ authRoutes.post("/logout", (req, res) => {
   res.cookie("token", "", {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    sameSite: "none",
     maxAge: 0,
   });
   return res.status(200).json({ message: "Logout successful" });
