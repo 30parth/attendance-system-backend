@@ -5,8 +5,7 @@ export interface IStudent extends Document {
   rollNumber: string;
   divition: string;
   section: string;
-  firstName: string;
-  lastName: string;
+  name: string;
   gender: string;
   dob: string;
   category: string;
@@ -20,18 +19,17 @@ export interface IStudent extends Document {
 const StudentSchema = new Schema<IStudent>({
   admissionNo: { type: String, required: true },
   rollNumber: { type: String, required: true },
-  divition: { type: String, required: false },
+  divition: { type: String, required: true },
   section: { type: String, required: true },
-  firstName: { type: String, required: true },
-  lastName: { type: String },
+  name: { type: String, required: true },
   gender: { type: String, required: true },
-  dob: { type: String },
-  category: { type: String },
+  dob: { type: String, required: true },
+  category: { type: String, required: false },
   mobileNumber: { type: String, required: true },
-  email: { type: String },
+  email: { type: String, required: true },
   admissionDate: { type: String, required: false },
-  bloodGroup: { type: String },
-  medicalHistory: { type: String },
+  bloodGroup: { type: String, required: false },
+  medicalHistory: { type: String, required: false },
 });
 
 export const Student = model<IStudent>("Student", StudentSchema);
