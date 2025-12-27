@@ -18,7 +18,7 @@ dropdownRoute.get("/dropdown/class", async (req, res) => {
 // Dropdown for Students - Returns only _id and combined name
 dropdownRoute.get("/dropdown/student", async (req, res) => {
   try {
-    const students = await Student.find().select("_id firstName lastName");
+    const students = await Student.find().select("_id name");
     const formattedStudents = students.map((student) => ({
       _id: student._id,
       name: student.name,

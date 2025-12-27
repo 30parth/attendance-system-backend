@@ -1,4 +1,4 @@
-import { Document, Schema, Model } from "mongoose";
+import { Document, Schema, model } from "mongoose";
 
 export interface ISubject extends Document {
   name: string;
@@ -6,6 +6,11 @@ export interface ISubject extends Document {
   divitionId: string;
 }
 
-const SubjectSchema = new Schema<ISubject>({
-  name: { type: String, required: true },
-});
+const SubjectSchema = new Schema<ISubject>(
+  {
+    name: { type: String, required: true },
+  },
+  { timestamps: true }
+);
+
+export const Subject = model<ISubject>("Subject", SubjectSchema);
