@@ -21,7 +21,7 @@ dropdownRoute.get("/dropdown/student", async (req, res) => {
     const students = await Student.find().select("_id firstName lastName");
     const formattedStudents = students.map((student) => ({
       _id: student._id,
-      name: `${student.firstName} ${student.lastName}`,
+      name: student.name,
     }));
     res.status(200).json(formattedStudents);
   } catch (error) {
