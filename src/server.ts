@@ -9,6 +9,7 @@ import classRoutes from "./routes/classRoutes";
 import studentRoutes from "./routes/studentRoutes";
 import dropdownRoutes from "./routes/dropdownRoutes";
 import teacherRoutes from "./routes/teacherRoutes";
+import subejctRoute from "./routes/subjectRoutes";
 
 // Load environment variables
 dotenv.config();
@@ -42,7 +43,7 @@ app.use("/api", classRoutes);
 app.use("/api", studentRoutes);
 app.use("/api", dropdownRoutes);
 app.use("/api", teacherRoutes);
-
+app.use("/api", subejctRoute);
 // Health Check
 app.get("/health", (req, res) => {
   res.json({ status: "ok" });
