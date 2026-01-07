@@ -1,16 +1,16 @@
 import { Router } from "express";
-import { Class } from "../models/Class";
+import { Semester } from "../models/Semester";
 import { Student } from "../models/Student";
 
 const dropdownRoute = Router();
 
-// Dropdown for Classes - Returns only _id and name
-dropdownRoute.get("/dropdown/class", async (req, res) => {
+// Dropdown for Semesters - Returns only _id and name
+dropdownRoute.get("/dropdown/semester", async (req, res) => {
   try {
-    const classes = await Class.find().select("_id name");
-    res.status(200).json(classes);
+    const semesters = await Semester.find().select("_id name");
+    res.status(200).json(semesters);
   } catch (error) {
-    console.error("Error fetching class dropdown data:", error);
+    console.error("Error fetching semester dropdown data:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });

@@ -5,11 +5,12 @@ import cors from "cors";
 
 import { connectDB } from "./db";
 import authRoutes from "./routes/authRoutes";
-import classRoutes from "./routes/classRoutes";
+import semesterRoutes from "./routes/semesterRoutes";
 import studentRoutes from "./routes/studentRoutes";
 import dropdownRoutes from "./routes/dropdownRoutes";
 import teacherRoutes from "./routes/teacherRoutes";
 import subejctRoute from "./routes/subjectRoutes";
+import sectionRoute from "./routes/sectionRoutes";
 
 // Load environment variables
 dotenv.config();
@@ -39,11 +40,12 @@ app.use(
 
 // Routes
 app.use("/api", authRoutes);
-app.use("/api", classRoutes);
+app.use("/api", semesterRoutes);
 app.use("/api", studentRoutes);
 app.use("/api", dropdownRoutes);
 app.use("/api", teacherRoutes);
 app.use("/api", subejctRoute);
+app.use("/api", sectionRoute);
 // Health Check
 app.get("/health", (req, res) => {
   res.json({ status: "ok" });
