@@ -7,7 +7,6 @@ export interface ISemester {
 }
 
 export interface ISection {
-  _id?: string;
   name: string;
   createdAt?: Date;
   updatedAt?: Date;
@@ -17,15 +16,15 @@ const sectionSchema = new Schema<ISection>(
   {
     name: { type: String, required: true },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const semesterSchema = new Schema<ISemester>(
   {
     name: { type: String, required: true },
-    section: [sectionSchema],
+    section: { type: [sectionSchema], default: [] },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export const Semester = model<ISemester>("Semester", semesterSchema);
